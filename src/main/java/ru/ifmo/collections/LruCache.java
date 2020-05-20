@@ -1,29 +1,30 @@
 package ru.ifmo.collections;
 
-/**
- * Represents LRU cache with fixed maximum capacity.
- *
- * get() should return null if there is no value for a given key.
- * elements() should return number of elements in cache.
- *
- * This class should not have any other public methods.
- *
- * Implementing this cache in (almost) the same manner as it was implemented during the lecture will result in extra points.
- */
+import java.util.*;
+
 public class LruCache<K, V> {
-    public LruCache(int capacity) {
-        // TODO implement
+    private LinkedHashMap<K, V> map;
+    private final int capacity;
+
+    public LruCache(int initialCapacity) {
+        this.map = new LinkedHashMap<>(initialCapacity, 1f, true) {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+                return size() > initialCapacity;
+            }
+        };
+        this.capacity = initialCapacity;
     }
 
     public V get(K key) {
-        throw new UnsupportedOperationException(); // TODO implement
+        return map.get(key);
     }
 
     public void put(K key, V value) {
-        // TODO implement
+        map.put(key, value);
     }
 
     public int elements() {
-        throw new UnsupportedOperationException(); // TODO implement
+        return map.size();
     }
 }
